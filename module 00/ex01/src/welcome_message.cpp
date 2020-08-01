@@ -1,4 +1,4 @@
-#include "masters_phonebook.hpp"
+#include "../masters_phonebook.hpp"
 
 void welcome_message(void)
 {
@@ -15,5 +15,5 @@ void welcome_message(void)
 	<< "- to add a contact: ADD\n"
 	<< "- to search for a contact: SEARCH\n"
 	<< "- to exit: EXIT\n"
-	<< "_________________________________\n\n" RESET;
+	<< "_________________________________\n" RESET;
 }

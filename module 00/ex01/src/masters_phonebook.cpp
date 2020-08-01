@@ -1,9 +1,9 @@
-#include "masters_phonebook.hpp"
+#include "../masters_phonebook.hpp"
 
 /*
-Note(s) on print_contact_list():
-
-Parent function: search_cmd
+** Note(s) on print_contact_list():
+** 
+** Parent function: search_cmd()
 */
 
 int print_contact_list(contact_data contacts[], int &number_of_contacts)
@@ -30,13 +30,13 @@ int print_contact_list(contact_data contacts[], int &number_of_contacts)
 }
 
 /*
-Note(s) on process_index():
-
-Parent function: search_cmd
-
-Function Summary:
-1. check if requested index number is valid
-2. display contact info
+** Note(s) on process_index():
+** 
+** Parent function: search_cmd()
+** 
+** Function Summary:
+** 1. check if requested index number is valid
+** 2. display contact info
 */
 
 int process_index(contact_data contacts[], int &number_of_contacts, int index)
@@ -59,29 +59,31 @@ int process_index(contact_data contacts[], int &number_of_contacts, int index)
 		<< " - birthday date: "<< contacts[index].birthday_date << "\n"
 		<< " - favorite meal: "<< contacts[index].favorite_meal << "\n"
 		<< " - underwear color: "<< contacts[index].underwear_color << "\n"
-		<< " - darkest secret: "<< contacts[index].darkest_secret << "\n\n";
+		<< " - darkest secret: "<< contacts[index].darkest_secret << "\n";
 	}
 	return (1);
 }
 
 /*
-Note(s) on search_cmd():
-
-Function Summary:
-1. check if there are any contacts
-2. print contact list
-3. prompt user for index of contact
-
-Reason for "std::cin.clear();": without it, rampant spam ensues 
-Reason for "std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');": without it, a tiny amount of spam still slips through
+** Note(s) on search_cmd():
+** 
+** Function Summary:
+** 1. check if there are any contacts
+** 2. print contact list
+** 3. prompt user for index of contact
+** 
+** Reason for "std::cin.clear();": without it, rampant spam ensues Reason for
+** "std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');":
+** without it, a tiny amount of spam still slips through
 */
+
 int search_cmd(contact_data contacts[], int &number_of_contacts)
 {
 	int requested_index;
 
 	if (number_of_contacts == 0)
 	{
-		std::cout << "I apologize, but no contacts were found..\n\n";
+		std::cout << "I apologize, but no contacts were found.\n";
 		return (1);
 	}
 	print_contact_list(contacts, number_of_contacts);
@@ -100,26 +102,32 @@ int search_cmd(contact_data contacts[], int &number_of_contacts)
 }
 
 /*
-Note(s) on add_cmd():
-
-Function Summary:
-1. check is contact list is full
-2. prompt user for contact info
-3. store user input
-
-It makes more sense to me to truncate the input of the first name, last name and nickname here (and store those shortened versions in an additional variable) instead of when the contact list is returned for the SEARCH command. A contact is only added once, but it's likely to be displayed in the contact list many more times; so by doing a bit more work now, we save doing that bit of work over and over again later. 
-
-"std::getline(std::cin, contacts[i].first_name);" Have to use getline() here, as spaces in the input shouldn't act as delimiters, which they do with cin().
+** Note(s) on add_cmd():
+** 
+** Function Summary:
+** 1. check is contact list is full
+** 2. prompt user for contact info
+** 3. store user input
+** 
+** The shortening of first name, last name and nickname are done here instead
+** of when the contact list is returned for the SEARCH command, because a
+** contact is only added once, but it's likely to be displayed in the contact
+** list many more times; so by doing a bit more work now, we save doing that
+** bit of work over and over again later. 
+** 
+** "std::getline(std::cin, contacts[i].first_name);" Have to use getline()
+** here, as spaces in the input shouldn't act as delimiters, which they do with
+** cin().
 */
 
 int add_cmd(contact_data contacts[], int &number_of_contacts)
 {
 	static int i;
 
-	if (number_of_contacts == 8)
+	if (number_of_contacts == 2)
 	{
-		std::cout << "Upgrade to MASTER'S PHONEBOOK PRO to store EVEN MORE \
-		contacts! Now for only €99.99/month!\n(" BLACK "Conditions apply" RESET ")\n\n";
+		std::cout << YELLOW BOLD "Contact limit reached. Upgrade to MASTER'S \
+PHONEBOOK PRO to store EVEN MORE contacts! Now for only €99.99/month!\n" RESET;
 		return (1);
 	}
 	std::cout << "Enter first name: ";
@@ -146,24 +154,23 @@ int add_cmd(contact_data contacts[], int &number_of_contacts)
 		contacts[i].nickname_short.resize(9);
 		contacts[i].nickname_short += '.';
 	}
-	// std::getline(std::cin, contacts[i].nickname);
-	// std::cout << "Enter login: ";
-	// std::getline(std::cin, contacts[i].login);
-	// std::cout << "Enter postal address: ";
-	// std::getline(std::cin, contacts[i].postal_address);
-	// std::cout << "Enter email address: ";
-	// std::getline(std::cin, contacts[i].email_address);
-	// std::cout << "Enter phone number: ";
-	// std::getline(std::cin, contacts[i].phone_number);
-	// std::cout << "Enter birthday date: ";
-	// std::getline(std::cin, contacts[i].birthday_date);
-	// std::cout << "Enter favorite meal: ";
-	// std::getline(std::cin, contacts[i].favorite_meal);
-	// std::cout << "Enter underwear color: ";
-	// std::getline(std::cin, contacts[i].underwear_color);
-	// std::cout << "Enter darkest secret: ";
-	// std::getline(std::cin, contacts[i].darkest_secret);
-	std::cout << GREEN BOLD "Contact saved, Glorious Master!\n\n" RESET;
+	std::cout << "Enter login: ";
+	std::getline(std::cin, contacts[i].login);
+	std::cout << "Enter postal address: ";
+	std::getline(std::cin, contacts[i].postal_address);
+	std::cout << "Enter email address: ";
+	std::getline(std::cin, contacts[i].email_address);
+	std::cout << "Enter phone number: ";
+	std::getline(std::cin, contacts[i].phone_number);
+	std::cout << "Enter birthday date: ";
+	std::getline(std::cin, contacts[i].birthday_date);
+	std::cout << "Enter favorite meal: ";
+	std::getline(std::cin, contacts[i].favorite_meal);
+	std::cout << "Enter underwear color: ";
+	std::getline(std::cin, contacts[i].underwear_color);
+	std::cout << "Enter darkest secret: ";
+	std::getline(std::cin, contacts[i].darkest_secret);
+	std::cout << GREEN BOLD "Contact saved, Glorious Master!\n" RESET;
 	number_of_contacts++;
 	i++;
 	return (1);
@@ -179,22 +186,19 @@ int main()
 	number_of_contacts = 0;
 	while (1)
 	{
-		std::cout << "Command me, Master: ";
+		std::cout << "\nWhat is your command, Master? : ";
 		std::getline(std::cin, cmd);
-		// else if (cmd.compare("EXIT") == 0)
-		if (cmd.compare("EXIT") == 0 || cmd == "e") // TESTING: quicker cmd
+		if (cmd.compare("EXIT") == 0)
 		{
 			std::cout << "I shall await your return, Magnificent Master.\n";
 			break ;
 		}
-		// else if (cmd.compare("ADD") == 0)
-		else if (cmd.compare("ADD") == 0 || cmd == "a") // TESTING: quicker cmd
+		else if (cmd.compare("ADD") == 0)
 			add_cmd(contacts, number_of_contacts);
-		// else if (cmd.compare("SEARCH") == 0)
-		else if (cmd.compare("SEARCH") == 0 || cmd == "s") // TESTING: quicker cmd
+		else if (cmd.compare("SEARCH") == 0)
 			search_cmd(contacts, number_of_contacts);
 		else
-			std::cout << "I do not comprehend, Wise Master\n";
+			std::cout << "I do not comprehend, Wise Master.\n";
 	}
 	return (0);
 }

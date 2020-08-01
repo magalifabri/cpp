@@ -22,9 +22,6 @@ class contact_data
 		std::string first_name;
 		std::string last_name;
 		std::string nickname;
-		std::string first_name_short;
-		std::string last_name_short;
-		std::string nickname_short;
 		std::string login;
 		std::string postal_address;
 		std::string email_address;
@@ -33,6 +30,9 @@ class contact_data
 		std::string favorite_meal;
 		std::string underwear_color;
 		std::string darkest_secret;
+		std::string first_name_short;
+		std::string last_name_short;
+		std::string nickname_short;
 };
 
 void welcome_message(void);

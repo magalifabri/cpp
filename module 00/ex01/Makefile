@@ -1,6 +1,6 @@
 NAME 		= masters_phonebook
 
-SRC_DIR 	= ./
+SRC_DIR 	= ./src/
 SRC_FILES 	= masters_phonebook.cpp welcome_message.cpp
 
 OBJ_DIR 	= ./obj/
@@ -14,7 +14,7 @@ RMDIR 		= /bin/rm -rf
 
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR) $(OBJ_FILES)
+$(NAME): $(OBJ_DIR) $(OBJ_FILES) masters_phonebook.hpp
 	$(CC) $(CFLAGS) $(OBJ_FILES) -o $(NAME)
 
 # make OBJ_DIR for NAME dependency
