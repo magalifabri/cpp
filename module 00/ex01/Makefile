@@ -1,7 +1,7 @@
-NAME 		= phonebook
+NAME 		= masters_phonebook
 
 SRC_DIR 	= ./
-SRC_FILES 	= phonebook.cpp
+SRC_FILES 	= masters_phonebook.cpp welcome_message.cpp
 
 OBJ_DIR 	= ./obj/
 OBJ_FILES 	= $(addprefix $(OBJ_DIR), $(SRC_FILES:.cpp=.o))
