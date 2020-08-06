@@ -17,5 +17,4 @@ int main()
 	ref = *ptr;
 	std::cout << "ref = *ptr\n";
 	std::cout << "ref: " << ref << std::endl;
-
 }
