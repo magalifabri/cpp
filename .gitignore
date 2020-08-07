@@ -5,3 +5,4 @@ obj
 practice
 .vscode
 *.out
+*.nogit
