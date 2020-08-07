@@ -1,42 +1,51 @@
-/*
-Make a program called "replace" that takes a filename and two strings, let’s call them s1 and s2, that are NOT empty. 
-It will open the file, and write its contents to FILENAME.replace, after replacinge very occurence of s1 with s2.
-Of course, you will handle errors as best you can, and not use the C file manipulation functions? You will turn in some test files to show your program works.
-*/
-
-/*
-take a file and make a new file, [filename].replace, in which every occurrence of s1 is replaces with s2
-*/
-
 #include <iostream>
 #include <fstream>
 
-int main()
+void replaceAndCopy(std::ifstream &srcFile, std::ofstream &replaceFile,
+std::string &toFind, std::string &replaceWith)
 {
-	std::fstream testFile ("testfile.txt");
-	std::fstream testFile3("testfile3.txt");
-	std::string toFind = "needles";
-	std::size_t locationFound;
+	size_t toFindLength;
 	std::string lineBuffer;
+	std::size_t locationFound;
 
-	if (testFile.is_open() && testFile3.is_open())
+	toFindLength = toFind.length();
+	if (srcFile.is_open() && replaceFile.is_open())
 	{
-		while (std::getline(testFile, lineBuffer))
+		while (std::getline(srcFile, lineBuffer))
 		{
 			while (1)
 			{
 				locationFound = lineBuffer.find(toFind);
 				if (locationFound == std::string::npos)
 					break;
-				lineBuffer.replace(locationFound, toFind.length(),"preposition");
+				lineBuffer.replace(locationFound, toFindLength, replaceWith);
 			}
-			testFile3 << lineBuffer << std::endl;
+			replaceFile << lineBuffer << std::endl;
 		}
 	}
 	else
 		std::cout << "error: file failed to open\n";
-	testFile.close();
+}
+
+int main(int ac, char **av)
+{
+	std::ifstream srcFile;
+	std::ofstream replaceFile;
+	std::string toFind;
+	std::string replaceWith;
+
+	if (ac != 4)
+	{
+		std::cout << "error: incorrect number of arguments\n";
+		return (0);
+	}
+	srcFile.open(av[1]);
+	replaceFile.open(av[1] + (std::string)".replace");
+	toFind = av[2];
+	replaceWith = av[3];
+	replaceAndCopy(srcFile, replaceFile, toFind, replaceWith);
+	srcFile.close();
 	return (0);
 }
 
-// Optimization: - Remember until where in lineBuffer we have looked for s1, so that it doesn't start looking at the beginning every time. - Store s1's length in a variable, so we don't have to run s1.length() every time .replace is used.
+// Optimization: - Remember until where in lineBuffer we have looked for s1, so that it doesn't start looking at the beginning every time.
