@@ -48,4 +48,7 @@ int main(int ac, char **av)
 	return (0);
 }
 
-// Optimization: - Remember until where in lineBuffer we have looked for s1, so that it doesn't start looking at the beginning every time.
+/*
+** Optimization: - Remember until where in lineBuffer we have looked for s1,
+** so that it doesn't start looking at the beginning every time.
+*/
