@@ -33,6 +33,7 @@ class ScavTrap
 	void rangedAttack(std::string const & target);
 	void meleeAttack(std::string const & target);
 	void takeDmg(unsigned int amount);
+	void challengeNewcomer(void);
 	// void beRepaired(unsigned int amount);
 	// void vaulthunter_dot_exe(std::string const & target);
 };

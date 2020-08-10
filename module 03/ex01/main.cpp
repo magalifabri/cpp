@@ -25,4 +25,9 @@ int main()
 	scavtrap_1.takeDmg(50);
 	scavtrap_1.takeDmg(60);
 	scavtrap_1.takeDmg(10);
+	scavtrap_1.challengeNewcomer();
+	scavtrap_1.challengeNewcomer();
+	scavtrap_1.challengeNewcomer();
+	scavtrap_1.challengeNewcomer();
+	scavtrap_1.challengeNewcomer();
 }

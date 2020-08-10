@@ -2,7 +2,7 @@
 
 FragTrap::FragTrap(std::string FragTrapName)
 {
-	std::cout << "Constructor called\n"
+	std::cout << "Constructor called (" << name << ")\n"
 	<< "Booting sequence complete.\n"
 	<< CYAN BOLD " > 'Hey, best friend!'\n" RESET;
 	HP = 100;
@@ -18,7 +18,7 @@ FragTrap::FragTrap(std::string FragTrapName)
 
 FragTrap::~FragTrap(void)
 {
-	std::cout << "Destructor called\n"
+	std::cout << "Destructor called (" << name << ")\n"
 	<< CYAN BOLD " > 'Argh arghargh death gurglegurgle urgh.. death.'\n" RESET;
 }
 
@@ -112,7 +112,7 @@ void FragTrap::vaulthunter_dot_exe(std::string const & target)
 	}
 	else
 	{
-		attackNumber = rand() % 4;
+		attackNumber = rand() % 5;
 		if (attackNumber == 0)
 			std::cout << "FR4G-TP " << name << " activates Funzerker and goes \
 wild with two ammo-regenerating, auto-firing machine guns, focussing on "
