@@ -19,4 +19,6 @@ Module 1, ex07
 Module 2, ex00
 - [Static Members of a C++ Class](https://www.tutorialspoint.com/cplusplus/cpp_static_members.htm#:~:text=When%20we%20declare%20a%20member,no%20other%20initialization%20is%20present.)
 - [Copy constructor & Copy assignment (assignment operator overload)](http://www.cplusplus.com/doc/tutorial/classes2/)
-- 
+
+Module 2, ex01
+- [C++ overloaded output operator](https://stackoverflow.com/questions/14923987/c-overloaded-output-operator)
