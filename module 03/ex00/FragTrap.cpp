@@ -112,7 +112,7 @@ void FragTrap::vaulthunter_dot_exe(std::string const & target)
 	}
 	else
 	{
-		attackNumber = rand() % 4;
+		attackNumber = rand() % 5;
 		if (attackNumber == 0)
 			std::cout << "FR4G-TP " << name << " activates Funzerker and goes \
 wild with two ammo-regenerating, auto-firing machine guns, focussing on "
