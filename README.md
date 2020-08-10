@@ -22,3 +22,10 @@ Module 2, ex00
 
 Module 2, ex01
 - [C++ overloaded output operator](https://stackoverflow.com/questions/14923987/c-overloaded-output-operator)
+
+Module 3, ex00
+- [VaultHunter.EXE](https://borderlands.fandom.com/wiki/VaultHunter.EXE?li_source=LI&li_medium=wikia-rail)
+
+Module 3, ex01
+- [SC4V-TP](https://borderlands.fandom.com/wiki/SC4V-TP)
+- [video, Borderlands: The Pre-Sequel - Fragtrap meets SC4V-TP (Scavtrap)](https://www.youtube.com/watch?v=67IvxfjAGNM)
