@@ -34,26 +34,30 @@ class AWeapon
 	int getDmg() const;
 	virtual void attack() const = 0;
 };
-// default constructor (coplien 1/4)
+
+/* default constructor (coplien 1/4) */
 AWeapon::AWeapon(void)
 {
 	std::cout << CYAN "Default constructor called: AWeapon\n" RESET;
 }
-// constructor
-AWeapon::AWeapon(std::string const &weaponName, int weaponAPCost, int weaponDmg)
+
+/* constructor */
+AWeapon::AWeapon(std::string const &nameParam, int APCostParam, int dmgParam)
 {
 	std::cout << CYAN "Constructor called: AWeapon\n" RESET;
-	name = weaponName;
-	APCost = weaponAPCost;
-	dmg = weaponDmg;
+	name = nameParam;
+	APCost = APCostParam;
+	dmg = dmgParam;
 }
-// copy constructor (coplien 2/4)
+
+/* copy constructor (coplien 2/4) */
 AWeapon::AWeapon(const AWeapon &weapon)
 {
 	std::cout << CYAN "Copy constructor called\n" RESET;
 	operator=(weapon);
 }
-// assignment operator overload (coplien 3/4)
+
+/* assignment operator overload (coplien 3/4) */
 void AWeapon::operator=(const AWeapon &weapon)
 {
 	std::cout << CYAN "Assignation operator called\n" RESET;
@@ -61,7 +65,8 @@ void AWeapon::operator=(const AWeapon &weapon)
 	APCost = weapon.APCost;
 	dmg = weapon.dmg;
 }
-// destructor (coplien 4/4)
+
+/* destructor (coplien 4/4) */
 AWeapon::~AWeapon()
 {
 	std::cout << CYAN "Destructor called: AWeapon\n" RESET;
@@ -71,10 +76,12 @@ std::string AWeapon::getName() const
 {
 	return (name);
 }
+
 int AWeapon::getAPCost() const
 {
 	return (APCost);
 }
+
 int AWeapon::getDmg() const
 {
 	return (dmg);
@@ -93,25 +100,28 @@ class PlasmaRifle: public AWeapon
 
 	public:
 	PlasmaRifle();
-	PlasmaRifle(std::string const &weaponName, int weaponAPCost, int weaponDmg);
+	PlasmaRifle(std::string const &name, int APCost, int dmg);
 	~PlasmaRifle();
 	void attack() const;
 };
-// default constructor
+
+/* default constructor */
 PlasmaRifle::PlasmaRifle(void) : AWeapon()
 {
 	std::cout << CYAN "Default constructor called: PlasmaRifle\n" RESET;
 }
-// constructor
-PlasmaRifle::PlasmaRifle(std::string const &weaponName, int weaponAPCost, int weaponDmg)
-: AWeapon(weaponName, weaponAPCost, weaponDmg)
+
+/* constructor */
+PlasmaRifle::PlasmaRifle(std::string const &nameParam, int APCostParam
+, int dmgParam) : AWeapon(nameParam, APCostParam, dmgParam)
 {
 	std::cout << CYAN "Constructor called: PlasmaRifle\n" RESET;
-	name = weaponName;
-	APCost = weaponAPCost;
-	dmg = weaponDmg;
+	name = nameParam;
+	APCost = APCostParam;
+	dmg = dmgParam;
 }
-// destructor
+
+/* destructor */
 PlasmaRifle::~PlasmaRifle(void)
 {
 	std::cout << CYAN "Destructor called: PlasmaRifle\n" RESET;
@@ -139,12 +149,14 @@ class PowerFist: public AWeapon
 	~PowerFist();
 	void attack() const;
 };
-// default constructor
+
+/* default constructor */
 PowerFist::PowerFist(void) : AWeapon()
 {
 	std::cout << CYAN "Default constructor called: PowerFist\n" RESET;
 }
-// constructor
+
+/* constructor */
 PowerFist::PowerFist(std::string wpnName, int wpnAPCost, int wpnDmg)
 : AWeapon(wpnName, wpnAPCost, wpnDmg)
 {
@@ -153,7 +165,8 @@ PowerFist::PowerFist(std::string wpnName, int wpnAPCost, int wpnDmg)
 	APCost = wpnAPCost;
 	dmg = wpnDmg;
 }
-// destructor
+
+/* destructor */
 PowerFist::~PowerFist(void)
 {
 	std::cout << CYAN "Destructor called: PowerFist\n" RESET;
@@ -161,7 +174,7 @@ PowerFist::~PowerFist(void)
 
 void PowerFist::attack(void) const
 {
-	std::cout << "* pschhh... SBAM! *";
+	std::cout << "* pschhh... SBAM! *\n";
 }
 
 
@@ -184,32 +197,37 @@ class A_Enemy
 	int getHP() const;
 	virtual void takeDamage(int);
 };
-// default constructor (coplien 1/4)
+
+/* default constructor (coplien 1/4) */
 A_Enemy::A_Enemy(void)
 {
 	std::cout << CYAN "Default constructor called: A_Enemy\n" RESET;
 }
-// constructor
+
+/* constructor */
 A_Enemy::A_Enemy(int hpParam, std::string const &typeParam)
 {
 	std::cout << CYAN "Constructor called: A_Enemy\n" RESET;
 	hp = hpParam;
 	type = typeParam;
 }
-// copy constructor (coplien 2/4)
+
+/* copy constructor (coplien 2/4) */
 A_Enemy::A_Enemy(const A_Enemy &enemy)
 {
 	std::cout << CYAN "Copy constructor called: A_Enemy\n" RESET;
 	operator=(enemy);
 }
-// assignment operator overload (coplien 3/4)
+
+/* assignment operator overload (coplien 3/4) */
 void A_Enemy::operator=(const A_Enemy &enemy)
 {
 	std::cout << CYAN "Assignment operator called: A_Enemy\n" RESET;
 	hp = enemy.hp;
 	type = enemy.type;
 }
-// destructor (coplien 4/4)
+
+/* destructor (coplien 4/4) */
 A_Enemy::~A_Enemy(void)
 {
 	std::cout << CYAN "Destructor called: A_Enemy\n" RESET;
@@ -219,16 +237,21 @@ std::string A_Enemy::getType() const
 {
 	return (type);
 }
+
 int A_Enemy::getHP() const
 {
 	return (hp);
 }
+
 void A_Enemy::takeDamage(int dmgAmount)
 {
 	if (dmgAmount < 0)
 		return ;
 	hp -= dmgAmount;
-	std::cout << "Enemy " << type << " takes " << dmgAmount << " damage.\n";
+	std::cout << "Enemy " << type << " takes " << dmgAmount << " damage."
+	<< " (" << hp << "/";
+	if (type == "RadScorpion")
+		std::cout << "80 HP)\n";
 }
 
 
@@ -246,7 +269,8 @@ class SuperMutant : public A_Enemy
 	~SuperMutant();
 	void takeDamage(int dmgAmount);
 };
-// constructor
+
+/* constructor */
 SuperMutant::SuperMutant(int hpParam, std::string typeParam)
 : A_Enemy(hpParam, typeParam)
 {
@@ -254,17 +278,20 @@ SuperMutant::SuperMutant(int hpParam, std::string typeParam)
 	hp = hpParam;
 	type = typeParam;
 }
-// destructor
+
+/* destructor */
 SuperMutant::~SuperMutant(void)
 {
 	std::cout << CYAN "Aaargh...\n" RESET;
 }
+
 void SuperMutant::takeDamage(int dmgAmount)
 {
 	if (dmgAmount < 0)
 		return ;
 	hp -= (dmgAmount - 3);
-	std::cout << "Enemy " << type << " takes " << dmgAmount - 3 << " damage.\n";
+	std::cout << "Enemy " << type << " takes " << dmgAmount - 3 << " damage."
+	<< " (" << hp << "/" << "170 HP)\n";
 	if (hp <= 0)
 		SuperMutant::~SuperMutant();
 }
@@ -282,9 +309,9 @@ class RadScorpion : public A_Enemy
 	public:
 	RadScorpion(int hp, std::string type);
 	~RadScorpion();
-	// void takeDamage(int dmgAmount);
 };
-// constructor
+
+/* constructor */
 RadScorpion::RadScorpion(int hpParam, std::string typeParam)
 : A_Enemy(hpParam, typeParam)
 {
@@ -292,15 +319,12 @@ RadScorpion::RadScorpion(int hpParam, std::string typeParam)
 	hp = hpParam;
 	type = typeParam;
 }
-// destructor
+
+/* destructor */
 RadScorpion::~RadScorpion(void)
 {
 	std::cout << CYAN "* SPROTCH *\n" RESET;
 }
-// void RadScorpion::takeDamage(int dmgAmount)
-// {
-// 	hp -= dmgAmount;
-// }
 
 
 /* -------------------------- CHARACTER ----------------------------------------- */
@@ -324,15 +348,17 @@ class Character
 	void equip(AWeapon*);
 	void attack(A_Enemy*);
 	std::string virtual getName() const;
-	int virtual getAP() const;
-	std::string virtual getWeaponType() const;
+	int getAP() const;
+	std::string getWeaponType() const;
 };
-// default constructor (coplien 1/4)
+
+/* default constructor (coplien 1/4) */
 Character::Character()
 {
 	std:: cout << CYAN "Default constructor called: Character\n" RESET;
 }
-// constructor
+
+/* constructor */
 Character::Character(std::string const &nameParam)
 {
 	std:: cout << CYAN "Constructor called: Character\n" RESET;
@@ -341,13 +367,15 @@ Character::Character(std::string const &nameParam)
 	maxAP = 40;
 	weapon = nullptr;
 }
-// copy constructor (coplien 2/4)
+
+/* copy constructor (coplien 2/4) */
 Character::Character(Character const &character)
 {
 	std:: cout << CYAN "Copy constructor called: Character\n" RESET;
 	operator=(character);
 }
-// assignment operator overload (coplien 3/4)
+
+/* assignment operator overload (coplien 3/4) */
 void Character::operator=(Character const &character)
 {
 	std:: cout << CYAN "Assignment Operator called: Character\n" RESET;
@@ -356,7 +384,8 @@ void Character::operator=(Character const &character)
 	maxAP = 40;
 	weapon = character.weapon;
 }
-// destructor (coplien 4/4)
+
+/* destructor (coplien 4/4) */
 Character::~Character()
 {
 	std:: cout << CYAN "Destructor called: Character\n" RESET;
@@ -367,12 +396,15 @@ void Character::recoverAP()
 	AP += 10;
 	if (AP > maxAP)
 		AP = maxAP;
+	std::cout << name << " restored 10 AP. (" << AP << "/40 AP)\n";
 }
+
 void Character::equip(AWeapon* weaponParam)
 {
 	weapon = weaponParam;
 	std::cout << name << " equipped " << weapon->getName() << ".\n";
 }
+
 void Character::attack(A_Enemy *enemy)
 {
 	if (weapon == nullptr)
@@ -382,78 +414,86 @@ void Character::attack(A_Enemy *enemy)
 	}
 	if (AP - weapon->getAPCost() < 0)
 	{
-		std::cout << RED "Can't attack: insufficient AP.\n" RESET;
+		std::cout << RED "Can't attack: not enough AP. ("
+		<< AP << "/40 AP)\n" RESET;
 		return ;
 	}
-	std::cout << name << " attacks " << enemy->getType() << " with a " << weapon->getName() << ".\n";
+	std::cout << name << " attacks " << enemy->getType() << " with a "
+	<< weapon->getName() << ".\n";
 	weapon->attack();
 	enemy->takeDamage(weapon->getDmg());
 	AP -= weapon->getAPCost();
+	if (enemy->getHP() <= 0)
+		enemy->~A_Enemy();
 }
+
 std::string Character::getName() const
 {
 	return (name);
 }
+
 int Character::getAP() const
 {
 	return (AP);
 }
+
 std::string Character::getWeaponType() const
 {
 	if (weapon == nullptr)
 		return ("");
-	std::cout << "getWeaponType: weapon->getname(): \n";
-	std::cout << weapon->getName() << std::endl;
-
 	return (weapon->getName());
-	// return ()
 }
-
 
 
 /* -------------------------- MAIN ----------------------------------------- */
 
-std::ostream &operator<<(std::ostream &os, const Character &character)
+
+std::ostream &operator<<(std::ostream &os, const Character *character)
 {
-	if (character.getWeaponType() == "")
+	if (character->getWeaponType() == "")
 	{
-		os << character.getName() << " has " << character.getAP() << " AP and is unarmed\n";
+		os << character->getName() << " has " << character->getAP()
+		<< " AP and is unarmed.\n";
 	}
 	else
 	{
-		os << character.getName() << " has " << character.getAP() << " AP and wields a ";
-		os << character.getWeaponType() << std::endl;
+		os << character->getName() << " has " << character->getAP()
+		<< " AP and wields a " << character->getWeaponType() << ".\n";
 	}
 	return (os);
 }
 
 int main()
 {
-	PlasmaRifle *pioupiou;
-	pioupiou = new PlasmaRifle("PlasmaRifle", 21, 5);
-	std::cout << "pioupiou->getName(): " << pioupiou->getName()
-	<< "\npioupiou->getAPCost(): " << pioupiou->getAPCost()
-	<< "\npioupiou->getDmg(): " << pioupiou->getDmg()
-	<< std::endl;
-
-	PowerFist *bambam;
-	bambam = new PowerFist("PowerFist", 21, 5);
-	std::cout << "bambam->getName(): " << bambam->getName()
-	<< "\nbambam->getAPCost(): " << bambam->getAPCost()
-	<< "\nbambam->getDmg(): " << bambam->getDmg()
-	<< std::endl;
-
-	SuperMutant *grun;
-	grun = new SuperMutant(170, "Super Mutant");
-	RadScorpion clicky(80, "RadScorpion");
+	AWeapon *pioupiou;
+	AWeapon *bambam;
+	A_Enemy *grun;
+	A_Enemy *clicky;
 	Character *bill;
+
+	pioupiou = new PlasmaRifle("PlasmaRifle", 5, 21);
+	bambam = new PowerFist("PowerFist", 8, 50);
+	grun = new SuperMutant(170, "Super Mutant");
+	clicky = new RadScorpion(80, "RadScorpion");
 	bill = new Character("Bill");
-	std::cout << bill << std::endl;
-	bill->attack(grun);
-	bill->equip(pioupiou);
+	std::cout << bill;
 	bill->attack(grun);
 	bill->equip(bambam);
 	bill->attack(grun);
-
-	// bill.get
+	std::cout << bill;
+	bill->attack(grun);
+	bill->attack(grun);
+	bill->attack(grun);
+	bill->equip(pioupiou);
+	bill->attack(clicky);
+	bill->attack(clicky);
+	bill->recoverAP();
+	bill->recoverAP();
+	bill->attack(clicky);
+	bill->attack(clicky);
+	bill->attack(clicky);
+	std::cout << "ding!\n";
+	bill->Character::~Character();
+	pioupiou->~AWeapon();
+	bambam->~AWeapon();
 }
