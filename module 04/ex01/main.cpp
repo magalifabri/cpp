@@ -58,3 +58,7 @@ int main()
 	pioupiou->~AWeapon();
 	bambam->~AWeapon();
 }
+
+/*
+clang++ -Wall -Wextra -Werror main.cpp AWeapon.cpp PlasmaRifle.cpp PowerFist.cpp Enemy.cpp SuperMutant.cpp RadScorpion.cpp Character.cpp && ./a.out
+*/
