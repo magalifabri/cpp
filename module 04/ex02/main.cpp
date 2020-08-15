@@ -43,31 +43,31 @@ class TacticalMarine : public ISpaceMarine
 };
 TacticalMarine::TacticalMarine()
 {
-	std::cout << CYAN "Tactical Marine ready for battle!\n" RESET;
+	std::cout << CYAN "TacticalMarine: 'Tactical Marine ready for battle!'\n" RESET;
 }
 TacticalMarine::~TacticalMarine()
 {
-	std::cout << MAGENTA "Aaargh...\n" RESET;
+	std::cout << MAGENTA "TacticalMarine: 'Aaargh...'\n" RESET;
 }
 
 ISpaceMarine *TacticalMarine::clone(void) const
 {
-	std::cout << "\n";
+	std::cout << "TacticalMarine::clone(): * Cloning Tactical Marine... *\n";
 	ISpaceMarine *clone;
 	clone = new TacticalMarine();
 	return (clone);
 }
 void TacticalMarine::battleCry() const
 {
-	std::cout << "For the holy PLOT!\n";
+	std::cout << "TacticalMarine::battleCry(): 'For the holy PLOT!'\n";
 }
 void TacticalMarine::rangedAttack() const
 {
-	std::cout << "* attacks with a bolter *\n";
+	std::cout << "TacticalMarine::rangedAttack(): * attacks with a bolter *\n";
 }
 void TacticalMarine::meleeAttack() const
 {
-	std::cout << "* attacks with a chainsword *\n";
+	std::cout << "TacticalMarine::meleeAttack(): * attacks with a chainsword *\n";
 }
 
 
@@ -86,31 +86,31 @@ class AssaultTerminator : public ISpaceMarine
 };
 AssaultTerminator::AssaultTerminator()
 {
-	std::cout << CYAN "* teleports from space *\n" RESET;
+	std::cout << CYAN "AssaultTerminator: * teleports from space *\n" RESET;
 }
 AssaultTerminator::~AssaultTerminator()
 {
-	std::cout << MAGENTA "I’ll be back...\n" RESET;
+	std::cout << MAGENTA "AssaultTerminator: 'I’ll be back...'\n" RESET;
 }
 
 ISpaceMarine *AssaultTerminator::clone(void) const
 {
-	std::cout << "\n";
+	std::cout << "AssaultTerminator::clone(): * Cloning Assault Terminator... *\n";
 	ISpaceMarine *clone;
 	clone = new AssaultTerminator();
 	return (clone);
 }
 void AssaultTerminator::battleCry() const
 {
-	std::cout << "This code is unclean. PURIFY IT!\n";
+	std::cout << "AssaultTerminator::battleCry(): 'This code is unclean. PURIFY IT!'\n";
 }
 void AssaultTerminator::rangedAttack() const
 {
-	std::cout << "* does nothing *\n";
+	std::cout << "AssaultTerminator::rangedAttack(): * does nothing *\n";
 }
 void AssaultTerminator::meleeAttack() const
 {
-	std::cout << "* attacks with chainfists *\n";
+	std::cout << "AssaultTerminator::meleeAttack(): * attacks with chainfists *\n";
 }
 
 
@@ -156,16 +156,16 @@ Squad::Squad(Squad const &squad)
 }
 void Squad::operator=(Squad const &squad)
 {
-	int i = -1;
+	std::cout << CYAN "Assignment operator called: Squad\n" RESET;
+	
+	int i;
+	
+	i = -1;
 	while (squadmembers[++i])
-	{
 		delete squadmembers[i];
-	}
 	i = -1;
 	while (squad.squadmembers[++i])
-	{
-		squadmembers[i] = squad.squadmembers[i];
-	}
+		squadmembers[i] = squad.squadmembers[i]->clone();
 }
 Squad::~Squad(void)
 {
@@ -184,7 +184,7 @@ ISpaceMarine* Squad::getUnit(int squadmemberIndex) const
 {
 	if (squadmemberIndex >= getCount())
 	{
-		std::cout << "getUnit(): error: out of bounds index\n";
+		std::cout << RED "getUnit(): error: out of bounds index\n" RESET;
 		return (nullptr);
 	}
 	return (squadmembers[squadmemberIndex]);
@@ -208,45 +208,74 @@ int Squad::push(ISpaceMarine *marine)
 
 int main()
 {
-	// CREATE vlc squad
-	ISquad *vlc;
-	ISpaceMarine *bob;
-	ISpaceMarine *jim;
+	std::cout << CYAN "constructors are cyan\n" MAGENTA "destructors are magenta\n\n" RESET;
 
-	vlc = new Squad;
-	bob = new TacticalMarine();
-	jim = new AssaultTerminator();
 
-	std::cout << "return of getCount(): " << vlc->getCount() << std::endl;
-	std::cout << "return of push(bob): " << vlc->push(bob) << std::endl;
-	std::cout << "return of getCount(): " << vlc->getCount() << std::endl;
-	std::cout << "return of push(jim): " << vlc->push(jim) << std::endl;
-	std::cout << "return of getCount(): " << vlc->getCount() << std::endl;
+	std::cout << YELLOW "create Valiant Lion Crusaders squad" RESET;
+	Squad *VLC;
+	ISpaceMarine *bobTM;
+	ISpaceMarine *jimAT;
 
-	// TEST VLC SQUAD
+	VLC = new Squad;
+	bobTM = new TacticalMarine();
+	jimAT = new AssaultTerminator();
+
+
+	std::cout << YELLOW "\ntest getCount() & push()\n" RESET;
+	std::cout << "return of getCount(): " << VLC->getCount() << std::endl;
+	std::cout << "return of push(bobTM): " << VLC->push(bobTM) << std::endl;
+	std::cout << "return of getCount(): " << VLC->getCount() << std::endl;
+	std::cout << "return of push(jimAT): " << VLC->push(jimAT) << std::endl;
+	std::cout << "return of getCount(): " << VLC->getCount() << std::endl;
+
+
+	std::cout << YELLOW "\ntest VLC squad & marine abilities\n" RESET;
 	ISpaceMarine *cur;
-	int i;
-
-	i = -1;
-	while (++i < vlc->getCount() + 1)
+	int i = -1;
+	while (++i < VLC->getCount() + 1)
 	{
-		cur = vlc->getUnit(i);
+		cur = VLC->getUnit(i);
 		if (cur == nullptr)
 			break ;
 		cur->battleCry();
 		cur->rangedAttack();
 		cur->meleeAttack();
+		std::cout << std::endl;
 	}
 
 
-	// DELETE marines in vlc squad
+	std::cout << YELLOW "\ncreate Chaos Legion Platoon squad as copy of VLC & add marine to CLP\n" RESET;
+	Squad CLP(*VLC);
+	ISpaceMarine *myr;
+	myr = new TacticalMarine;
+	CLP.push(myr);
+
+
+	std::cout << YELLOW "\ndelete VLC squad units & VLC squad\n" RESET;
 	i = -1;
-	while (++i < vlc->getCount())
+	while (++i < VLC->getCount())
+		delete VLC->getUnit(i);
+	delete VLC;
+
+
+	std::cout << YELLOW "\ntest CLP squad (copy of VLC + TacticalMarine) & marine abilities\n" RESET;
+	i = -1;
+	while (++i < CLP.getCount() + 1)
 	{
-		delete vlc->getUnit(i);
+		cur = CLP.getUnit(i);
+		if (cur == nullptr)
+			break ;
+		cur->battleCry();
+		cur->rangedAttack();
+		cur->meleeAttack();
+		std::cout << std::endl;
 	}
-	// delete bob;
-	// delete jim;
-	delete vlc;
+
+
+	std::cout << YELLOW "\ndelete CLP squad units\n" RESET;
+	i = -1;
+	while (++i < CLP.getCount())
+		delete CLP.getUnit(i);
+	
 	return (0);
 }
