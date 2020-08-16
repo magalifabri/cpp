@@ -12,10 +12,9 @@ Squad::Squad(Squad const &squad)
 }
 void Squad::operator=(Squad const &squad)
 {
-	std::cout << CYAN "Assignment operator called: Squad\n" RESET;
-	
 	int i;
 	
+	std::cout << CYAN "Assignment operator called: Squad\n" RESET;
 	i = -1;
 	while (squadmembers[++i])
 		delete squadmembers[i];
