@@ -20,7 +20,6 @@ class Character;
 class IMateriaSource;
 
 
-
 // -------------------------- I_CHARACTER INTERFACE CLASS ----------------------
 
 
@@ -32,11 +31,7 @@ class ICharacter
 	virtual void equip(AMateria* m) = 0;
 	virtual void unequip(int idx) = 0;
 	virtual void use(int idx, ICharacter& target) = 0;
-	// virtual void printInventory() = 0;
 };
-
-
-// -------------------------- A_MATERIA ABSTRACT CLASS -------------------------
 
 
 /*
@@ -45,6 +40,7 @@ class ICharacter
 ███████ ██ ████ ██ ███████    ██    █████   ██████  ██ ███████ 
 ██   ██ ██  ██  ██ ██   ██    ██    ██      ██   ██ ██ ██   ██ 
 ██   ██ ██      ██ ██   ██    ██    ███████ ██   ██ ██ ██   ██ 
+// -------------------------- A_MATERIA ABSTRACT CLASS -------------------------
 */
 
 
@@ -53,17 +49,15 @@ class AMateria
 	private:
 	std::string type;
 	unsigned int _xp;
-	// [...]?
 
 	public:
 	AMateria();
 	AMateria(std::string const & type);
 	AMateria(const AMateria &materia);
 	void operator=(const AMateria &materia);
-	// [...]?
 	virtual ~AMateria();
-	std::string const & getType() const; //Returns the materia type
-	unsigned int getXP() const; //Returns the Materia's XP
+	std::string const & getType() const;
+	unsigned int getXP() const;
 	virtual AMateria* clone() const = 0;
 	virtual void use(ICharacter& target);
 
@@ -121,8 +115,8 @@ void AMateria::use(ICharacter& target)
 {
 	if (type == "ice")
 		std::cout << "* shoots an ice bolt at " << target.getName() << " *\n";
-	else if (type == "cure")
-		std::cout << "* heals" << target.getName() << "'s wounds *\n";
+	else if (type == "heal")
+		std::cout << "* heals " << target.getName() << "'s wounds *\n";
 	_xp += 10;
 }
 
@@ -133,11 +127,7 @@ void AMateria::setType(std::string const &typeParam)
 void AMateria::set_xp(unsigned int const &_xpParam)
 {
 	_xp = _xpParam;
-	std::cout << "set_xp: " << _xp << "\n";
 }
-
-
-// -------------------------- ICE CLASS ---------------------------------------
 
 
 /*
@@ -146,57 +136,30 @@ void AMateria::set_xp(unsigned int const &_xpParam)
 ██ ██      █████   
 ██ ██      ██      
 ██  ██████ ███████ 
+// -------------------------- ICE CLASS ---------------------------------------
 */
-
 
 
 class Ice : public AMateria
 {
-	private:
-	std::string type;
-	// unsigned int _xp;
-	// [...]?
-
 	public:
 	Ice();
 	Ice(std::string const & type);
-	Ice(const Ice &materia);
-	void operator=(const Ice &materia);
-	// [...]?
 	~Ice();
-	// std::string const & getType() const; //Returns the materia type
-	// unsigned int getXP() const; //Returns the Materia's XP
 	AMateria* clone() const;
-	// void use(ICharacter& target);
 };
-// default constructor (coplien 1/4)
+// default constructor
 Ice::Ice(void) : AMateria()
 {
 	std::cout << CYAN "default constructor: Ice\n" RESET;
-	type = "ice";
-	// _xp = 0;
+	setType("ice");
 }
 // constructor
 Ice::Ice(std::string const & typeParam) : AMateria(typeParam)
 {
 	std::cout << CYAN "constructor: Ice\n" RESET;
-	type = typeParam;
-	// _xp = 0;
+	setType(typeParam);
 }
-// copy constructor (coplien 2/4)
-Ice::Ice(const Ice &iceParam)
-{
-	std::cout << CYAN "copy constructor: Ice\n" RESET;
-	operator=(iceParam);
-}
-// assignment operator (coplien 3/4)
-void Ice::operator=(const Ice &iceParam)
-{
-	std::cout << CYAN "assignment operator: Ice\n" RESET;
-	type = iceParam.getType();
-	set_xp(iceParam.getXP());
-}
-// destructor (coplien 4/4)
 Ice::~Ice()
 {
 	std::cout << MAGENTA "destructor: Ice\n" RESET;
@@ -205,27 +168,59 @@ Ice::~Ice()
 AMateria *Ice::clone() const
 {
 	AMateria *newIce = new Ice;
-	newIce->setType(type);
+	newIce->setType(getType());
 	newIce->set_xp(getXP());
 	return (newIce);
 }
-// void Ice::use(ICharacter& target)
+
+
+
+class Heal : public AMateria
+{
+	public:
+	Heal();
+	Heal(std::string const & type);
+	~Heal();
+	AMateria* clone() const;
+};
+// default constructor
+Heal::Heal(void) : AMateria()
+{
+	std::cout << CYAN "default constructor: Heal\n" RESET;
+	setType("heal");
+}
+// constructor
+Heal::Heal(std::string const & typeParam) : AMateria(typeParam)
+{
+	std::cout << CYAN "constructor: Heal\n" RESET;
+	setType(typeParam);
+}
+Heal::~Heal()
+{
+	std::cout << MAGENTA "destructor: Heal\n" RESET;
+}
+
+AMateria *Heal::clone() const
+{
+	AMateria *newHeal = new Heal;
+	newHeal->setType(getType());
+	newHeal->set_xp(getXP());
+	return (newHeal);
+}
+
+
+// // -------------------------- I_CHARACTER INTERFACE CLASS ----------------------
+
+
+// class ICharacter
 // {
-// 	unsigned int xp;
-
-// 	xp = getXP();
-// 	set_xp(xp + 10);
-
-// 	std::cout << getXP() << "\n";
-// 	if (type == "ice")
-// 		std::cout << "* shoots an ice bolt at " << target.getName() << " *\n";
-// 	else if (type == "cure")
-// 		std::cout << "* heals" << target.getName() << "'s wounds *\n";
-// }
-
-
-
-// -------------------------- CHARACTER CLASS ---------------------------------
+// 	public:
+// 	virtual ~ICharacter() {}
+// 	virtual std::string const & getName() const = 0;
+// 	virtual void equip(AMateria* m) = 0;
+// 	virtual void unequip(int idx) = 0;
+// 	virtual void use(int idx, ICharacter& target) = 0;
+// };
 
 
 /*
@@ -234,6 +229,7 @@ AMateria *Ice::clone() const
 ██      ███████ ███████ ██████  ███████ ██         ██    █████   ██████  
 ██      ██   ██ ██   ██ ██   ██ ██   ██ ██         ██    ██      ██   ██ 
  ██████ ██   ██ ██   ██ ██   ██ ██   ██  ██████    ██    ███████ ██   ██ 
+// -------------------------- CHARACTER CLASS ---------------------------------
 */
 
 
@@ -374,15 +370,13 @@ void Character::printInventory(void)
 }
 
 
-// -------------------------- I_MATERIA_SOURCE INTERFACE CLASS ----------------
-
-
 /*
 ███████  ██████  ██    ██ ██████   ██████ ███████ 
 ██      ██    ██ ██    ██ ██   ██ ██      ██      
 ███████ ██    ██ ██    ██ ██████  ██      █████   
      ██ ██    ██ ██    ██ ██   ██ ██      ██      
 ███████  ██████   ██████  ██   ██  ██████ ███████ 
+// -------------------------- I_MATERIA_SOURCE INTERFACE CLASS ----------------
 */
 
 
@@ -476,59 +470,60 @@ AMateria* MateriaSource::createMateria(std::string const & type)
 int main()
 {
 	{
-		// std::cout << YELLOW "\n testing Character::getName(), equip() & unequip()\n" RESET;
+		std::cout << YELLOW "\n testing Character::getName(), equip() & unequip()\n" RESET;
 		
-		// AMateria *ice;
-		// ice = new Ice("ice I");
-		// AMateria *ice2;
-		// ice2 = new Ice("ice II");
-		// AMateria *ice3;
-		// ice3 = new Ice("ice III");
-		// AMateria *ice4;
-		// ice4 = new Ice("ice IV");
-		// AMateria *ice5;
-		// ice5 = new Ice("ice V");
+		AMateria *ice;
+		ice = new Ice("ice I");
+		AMateria *ice2;
+		ice2 = new Ice("ice II");
+		AMateria *ice3;
+		ice3 = new Ice("ice III");
+		AMateria *heal;
+		heal = new Heal("heal I");
+		AMateria *heal2;
+		heal2 = new Heal("heal II");
 
-		// Character *mage;
-		// mage = new Character("mage");
-		// std::cout << "mage->getName(): " << mage->getName() << std::endl;
+		Character *mage;
+		mage = new Character("mage");
+		std::cout << "mage->getName(): " << mage->getName() << std::endl;
 
-		// mage->equip(ice);
-		// mage->equip(ice2);
-		// mage->equip(ice3);
-		// mage->equip(ice4);
-		// mage->equip(ice5);
-		// mage->unequip(4);
-		// mage->unequip(-1);
-		// mage->unequip(2);
-		// mage->equip(ice5);
+		mage->equip(ice);
+		mage->equip(ice); // will return an error, because this particular materia instance has already been equipped
+		mage->equip(ice2);
+		mage->equip(ice3);
+		mage->equip(heal);
+		mage->equip(heal2); // will return an error, because the inventory is full
+		mage->unequip(4); // will return an error, because index 4 is out of bounds
+		mage->unequip(-1); // same as previous
+		mage->unequip(2);
+		mage->equip(heal2);
 		
-		// delete ice3;
-		// delete mage;
+		delete ice3; // has to be deleted seperately, because it isn't deleted together with the rest of the materia that mage has equipped
+		delete mage;
 	}
 	{
-		// std::cout << YELLOW "\n testing MateriaSource::createMateria() & learnMateria(), & Materia::getType() & clone()\n" RESET;
+		std::cout << YELLOW "\n testing MateriaSource::createMateria() & learnMateria(), & Materia::getType() & clone()\n" RESET;
 		
-		// AMateria *ice;
-		// ice = new Ice("ice");
+		AMateria *ice;
+		ice = new Ice("ice");
 
-		// IMateriaSource *spellbook;
-		// spellbook = new MateriaSource();
+		IMateriaSource *spellbook;
+		spellbook = new MateriaSource();
 
-		// AMateria *created;
-		// created = spellbook->createMateria("ice"); // createMateria returns an error, because no Materia of type "ice" has been learned yet
-		// std::cout << "created->getType(): " << created->getType() << "\n"; // returns an error because AMateria *created has not been assigned an actual Materia and thus also doesn't have a type (it's currently nullptr)
-		// created = ice->clone(); // created is assigned a copy of AMateria *ice, so now it has a type
-		// std::cout << "created->getType(): " << created->getType() << "\n"; // works now
-		// spellbook->learnMateria(ice); // ice->clone didn't actually have spellbook learn the ice Materia, of course, but now it does learn it
-		// created = spellbook->createMateria("ice"); // because ice has been learned, we can use createMateria() to copy it
-		// spellbook->learnMateria(ice);
-		// spellbook->learnMateria(spellbook->createMateria("ice")); // it even works like this
-		// spellbook->learnMateria(spellbook->createMateria("ice"));
-		// spellbook->learnMateria(spellbook->createMateria("ice"));
-		// spellbook->learnMateria(spellbook->createMateria("ice")); // we've already learned 4 Materia, so trying to learn more returns an error
+		AMateria *created;
+		created = spellbook->createMateria("ice"); // createMateria returns an error, because no Materia of type "ice" has been learned yet
+		std::cout << "created->getType(): " << created->getType() << "\n"; // returns an error because AMateria *created has not been assigned an actual Materia and thus also doesn't have a type (it's currently nullptr)
+		created = ice->clone(); // created is assigned a copy of AMateria *ice, so now it has a type
+		std::cout << "created->getType(): " << created->getType() << "\n"; // works now
+		spellbook->learnMateria(ice); // ice->clone didn't actually have spellbook learn the ice Materia, of course, but now it does learn it
+		created = spellbook->createMateria("ice"); // because ice has been learned, we can use createMateria() to copy it
+		spellbook->learnMateria(ice);
+		spellbook->learnMateria(spellbook->createMateria("ice")); // it even works like this
+		spellbook->learnMateria(spellbook->createMateria("ice"));
+		spellbook->learnMateria(spellbook->createMateria("ice"));
+		spellbook->learnMateria(spellbook->createMateria("ice")); // we've already learned 4 Materia, so trying to learn more returns an error
 
-		// delete spellbook;
+		delete spellbook;
 	}
 	{
 		std::cout << YELLOW "\n testing Character::use()\n" RESET;
@@ -541,24 +536,32 @@ int main()
 		IMateriaSource *spellbook;
 		spellbook = new MateriaSource();
 
-		// create a spell
+		// create spells
 		AMateria *ice;
 		ice = new Ice("ice");
+		AMateria *heal;
+		heal = new Heal("heal");
 
-		// store the spell in the spellbook
+		// store the spells in the spellbook
 		spellbook->learnMateria(ice);
+		spellbook->learnMateria(heal);
 
-		// prepare a spell from the spellbook
+		// prepare the spells from the spellbook
 		mage->equip(spellbook->createMateria("ice"));
+		mage->equip(spellbook->createMateria("heal"));
 
 		// create a target dummy
 		ICharacter *targetDummy;
 		targetDummy = new Character("target dummy");
 
 		// attack
-		std::cout << "mage->inventory[0]->getXP(): " << mage->inventory[0]->getXP() << "\n";
+		std::cout << "equipped ice spell xp: " << mage->inventory[0]->getXP() << "\n";
 		mage->use(0, *targetDummy);
-		std::cout << "mage->inventory[0]->getXP(): " << mage->inventory[0]->getXP() << "\n";
+		std::cout << "equipped ice spell xp: " << mage->inventory[0]->getXP() << "\n";
+		mage->use(0, *targetDummy);
+		std::cout << "equipped ice spell xp: " << mage->inventory[0]->getXP() << "\n";
+		mage->use(1, *targetDummy);
+		std::cout << "equipped heal spell xp: " << mage->inventory[1]->getXP() << "\n";
 
 		// clean up
 		delete mage;
@@ -566,28 +569,31 @@ int main()
 		delete targetDummy;
 	}
 	{
-		// std::cout << YELLOW "\n testing Character::operator=()\n" RESET;
+		std::cout << YELLOW "\n testing Character::operator=()\n" RESET;
 
-		// // create a character (name constructor)
-		// Character *mage;
-		// mage = new Character("mage");
+		// create a character (name constructor)
+		Character *mage;
+		mage = new Character("mage");
 
-		// // create a spell and equip it
-		// AMateria *iceSpell;
-		// iceSpell = new Ice("ice");
-		// mage->equip(iceSpell);
+		// create a spell and equip it
+		AMateria *iceSpell;
+		iceSpell = new Ice("ice");
+		mage->equip(iceSpell);
 
-		// // create another character (copy constructor)
-		// Character *shapeshifter(mage);
+		// create another character (copy constructor)
+		Character *shapeshifter(mage);
 
-		// // check if they're the same
-		// std::cout << "shapeshifter->getName(): " << shapeshifter->getName() << "\n";
-		// shapeshifter->printInventory();
+		// check if they're the same
+		std::cout << "shapeshifter->getName(): " << shapeshifter->getName() << "\n";
+		shapeshifter->printInventory();
 	}
 	return (0);
 }
 
 /*
+
+Description: 
+
 AMateria.cpp Ice.cpp Cure.cpp Character.cpp MateriaSource.cpp main.cpp
 
 AMateria.hpp
