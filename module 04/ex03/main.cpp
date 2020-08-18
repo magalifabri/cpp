@@ -156,6 +156,14 @@ int main()
 
 /*
 
-Description: 
+Description
+Materia are items that contain a spell. For example:
+- the Materia Crystalized Snowflake contains the spell Ice
+- the Materia Winterbird's Feather also contains the spell Ice
+- the Materia Snowman's Effigy contains the spell Ice
+- the Materia Blessed Symbol contains the spell Heal
+- etc.
 
+A character can utilize the spells contained in Materia in two ways:
+- by equipping the Materia directly
 */
