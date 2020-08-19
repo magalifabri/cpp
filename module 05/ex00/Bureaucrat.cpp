@@ -45,7 +45,7 @@ void Bureaucrat::decrementGrade(void)
 	try
 	{
 		if (grade > 150)
-			throw;
+			throw myex;
 	}
 	catch (std::exception &e)
 	{

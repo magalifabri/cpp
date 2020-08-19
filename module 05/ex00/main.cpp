@@ -4,6 +4,17 @@
 #include <iostream>
 #include <exception>
 
+#define BLACK "\033[0;30m"
+#define RED "\033[0;31m"
+#define GREEN "\033[0;32m"
+#define YELLOW "\033[0;33m"
+#define BLUE "\033[0;34m"
+#define MAGENTA "\033[0;35m"
+#define CYAN "\033[0;36m"
+#define RESET "\033[0m"
+#define BOLD "\033[1m"
+#define UNDERLINE "\033[4m"
+#define REVERSED "\033[7m"
 
 // class Bureaucrat
 // {
@@ -96,10 +107,17 @@ std::ostream &operator<<(std::ostream &os, Bureaucrat const &x)
 
 int main()
 {
+	std::cout << YELLOW "\n testing Bureaucrat creation, incrementGrade() + GradeTooHighException()\n" RESET;
 	Bureaucrat ted("Teddy", 2);
 	std::cout << ted << "\n";
 	ted.incrementGrade();
 	ted.incrementGrade();
 	std::cout << ted << "\n";
+
+	std::cout << YELLOW "\n testing decrementGrade() + GradeTooLowException\n" RESET;
+	Bureaucrat bill("Billy", 150);
+	std::cout << bill << "\n";
+	bill.decrementGrade();
+	std::cout << bill << "\n";
 	return (0);
 }
