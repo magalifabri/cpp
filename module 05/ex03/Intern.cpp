@@ -18,8 +18,6 @@ Form *Intern::makeForm(std::string const &formName, std::string const &formTarge
 		return (nullptr);
 	}
 
-	std::cout << "";
-
 	std::string *formNames;
 	formNames = new std::string[3];
 	formNames[0] = "shrubbery creation";
@@ -43,5 +41,6 @@ Form *Intern::makeForm(std::string const &formName, std::string const &formTarge
 			return (nullptr);
 		}
 	}
+	std::cout << "Intern: 'Sir.. Sir.. uhm.. Here is the " << newForm->getName() << " you requested, sir..'\n";
 	return (newForm);
 }

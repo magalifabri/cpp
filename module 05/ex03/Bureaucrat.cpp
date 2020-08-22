@@ -68,6 +68,12 @@ void Bureaucrat::GradeTooLowException(void)
 
 void Bureaucrat::signForm(Form *form)
 {
+	if (!form)
+	{
+		std::cout << RED "error: form is nullptr\n" RESET;
+		return ;
+	}
+
 	std::cout << "Handing form '" << form->getName() << "' to " << name << " to sign it...\n";
 	if (form->getSignedStatus() == 1)
 		std::cout << name << ": 'That form is already signed, buttface!'\n";
@@ -77,6 +83,13 @@ void Bureaucrat::signForm(Form *form)
 
 void Bureaucrat::executeForm(Form const & form)
 {
+	Form const *addressOfForm = &form;
+	if (addressOfForm == nullptr)
+	{
+		std::cout << RED "error: form is nullptr\n" RESET;
+		return ;
+	}
+
 	std::cout << "Handing form '" << form.getName() << "' to " << name << " to execute it...\n";
 	form.execute(*this);
 }

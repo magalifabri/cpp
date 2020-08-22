@@ -89,11 +89,14 @@ int main()
 	Intern intern;
 	Form *newForm;
 	newForm = intern.makeForm("presidential thingy", "Again, President Trump");
+	newForm = intern.makeForm("", "Again, President Trump");
 	ted.signForm(newForm);
+	ted.executeForm(*newForm);
 	newForm = intern.makeForm("presidential pardon", "Again, President Trump");
+	ted.signForm(newForm);
 	ted.executeForm(*newForm);
 
-	std::cout << YELLOW "\n testing done()\n" RESET;
+	std::cout << YELLOW "\n testing done; delete'ing\n" RESET;
 	delete RRF;
 	delete SCF;
 	delete PPF;
@@ -102,5 +105,5 @@ int main()
 }
 
 /*
-clang++ -Wall -Wextra -Werror main.cpp Bureaucrat.cpp Form.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp PresidentialPardonForm.cpp && ./a.out
+clang++ -Wall -Wextra -Werror main.cpp Bureaucrat.cpp Form.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp PresidentialPardonForm.cpp Intern.cpp && ./a.out
 */
