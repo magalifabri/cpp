@@ -1,70 +1,95 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <iomanip>
+#include <climits>
+#include <cfloat>
+#include <math.h>
 
-int main(int ac, char **av)
+int main(int argc, char **argv)
 {
-	int integer;
-	int i = 0;
-	while (++i < ac)
-	{
-		std::cout << "given input:\t\t" << av[i] << "\n";
-		std::stringstream str(av[i]);
-		str >> integer;
-		if (integer != 0) // av[i] is a number
-			std::cout << "(1)input as integer:\t" << integer << "\n";
-		else // av[i] is a letter
-			std::cout << "(2)input as integer:\t" << (int)av[i][0] << "\n";
-		
-		std::istringstream str2(av[i]);
-		float floater;
-		str2 >> floater;
-		if (floater != 0) // av[i] is a number
-			std::cout << "(1)input as float:\t" << floater << "\n";
-		else // av[i] is a letter
-			std::cout << "(2)input as float:\t" << (float)av[i][0] << "\n";
-		
-		std::istringstream str3(av[i]);
-		double doubler;
-		str3 >> doubler;
-		if (doubler != 0) // av[i] is a number
-			std::cout << "(1)input as double:\t" << doubler << "\n";
-		else // av[i] is a letter
-			std::cout << "(2)input as double:\t" << (double)av[i][0] << "\n";
+	std::string s;
+	int sLen;
+	bool isInf;
+	bool hasFrac;
+	bool stringstreamFailed;
+	long double d;
+	int i;
 
-		// std::cout << "input as float:\t\t" << integer << "\n";
-		// std::cout << "input as double:\t" << integer << "\n\n";
-		std::cout << "\n";
+	// check number of arguments
+	if (argc <= 1)
+	{
+		std::cout << "error: too few arguments" << std::endl;
+		return (0);
 	}
 
-	// int integer;
-	float f;
-	double d;
 	i = 0;
-	while (++i < ac)
+	while (++i < argc)
 	{
-		if ((av[i][0] >= 'a' && av[i][0] <= 'z')
-		|| (av[i][0] >= 'A' && av[i][0] <= 'Z'))
-		{
-			integer = (int)(av[i][0]);
-			std::cout << "input as integer:\t" << integer << "\n";
-			f = (float)(av[i][0]);
-			std::cout << "input as float:\t\t" << f << "f\n";
-			d = (double)(av[i][0]);
-			std::cout << "input as double:\t" << d << "\n";
-		}
+		// convert argument char* to std::string
+		s = argv[i];
+
+		// get length of argument string
+		sLen = s.length();
+
+		// check argument string from nan/inf
+		isInf = (s.compare(0, sLen, "nan") == 0
+		|| s.compare(0, sLen, "-inf") == 0
+		|| s.compare(0, sLen, "+inf") == 0
+		|| s.compare(0, sLen, "nanf") == 0
+		|| s.compare(0, sLen, "-inff") == 0
+		|| s.compare(0, sLen, "+inff") == 0);
+
+		// check if argument string has a fractional part
+		hasFrac = s.find('.') != std::string::npos;
+		
+		// if we're not dealing with nan/inf and trailing f is present, remove f
+		if (!isInf && s[sLen - 1] == 'f')
+			s = s.substr(0, sLen - 1);
+		
+		// cast value to an int or convert to double
+		stringstreamFailed = 0;
+		if (sLen == 1 && std::isprint(s[0]))
+			d = (int)(s[0]);
 		else
 		{
-			std::string str = av[i];
-			integer = std::stoi(str);
-			std::cout << "input as integer:\t" << integer << "\n";
-			f = std::stof(str);
-			std::cout << "input as float:\t\t" << f << "f\n";
-			d = std::stod(str);
-			std::cout << "input as double:\t" << d << "\n";
+			std::istringstream ss(s);
+			ss >> d;
+			if (ss.fail())
+				stringstreamFailed = 1;
 		}
-	}
-	
 
-	return (0);
+		// output results
+		std::cout << "input:\t\t" << argv[i] << "\n";
+
+		// char
+		if (isinf(d) || isnan(d) || d < CHAR_MIN || d > CHAR_MAX)
+			std::cout << " - char:\timpossible\n";
+		else if (std::isprint(d))
+			std::cout << " - char:\t'" << (char)d << "'\n";
+		else
+			std::cout << " - char:\tNon displayable\n";
+
+		// int
+		if (stringstreamFailed || isinf(d) || isnan(d) || d < INT_MIN || d > INT_MAX)
+			std::cout << " - int:\t\timpossible\n";
+		else
+			std::cout << " - int:\t\t" << (int)d << "\n";
+
+		// float
+		if (d < FLT_MIN || d > FLT_MAX)
+			std::cout << " - float:\timpossible\n";
+		else if (hasFrac == true)
+			std::cout << " - float:\t" << (float)d << "f\n";
+		else
+			std::cout << " - float:\t" << std::setprecision(1) << std::fixed
+			<< (float)d << "f\n";
+
+		// double
+		if (d < DBL_MIN || d > DBL_MAX)
+			std::cout << " - double:\timpossible\n";
+		else
+			std::cout << " - double:\t" << (double)d << "\n";
+		std::cout << std::endl;
+	}
 }
