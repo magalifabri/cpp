@@ -29,3 +29,15 @@ Module 3, ex00
 Module 3, ex01
 - [SC4V-TP](https://borderlands.fandom.com/wiki/SC4V-TP)
 - [video, Borderlands: The Pre-Sequel - Fragtrap meets SC4V-TP (Scavtrap)](https://www.youtube.com/watch?v=67IvxfjAGNM)
+
+Module 7, ex02
+- [documentation, Container Classes](https://www.learncpp.com/cpp-tutorial/106-container-classes/)
+
+Module 8, ex00
+- [documentation, Container Classes](https://www.learncpp.com/cpp-tutorial/106-container-classes/)
+- [C++ Tutorial 17 : Sequence Containers](https://www.youtube.com/watch?v=KJWOm1bXUxM)
+- [std::find in C++](https://www.geeksforgeeks.org/std-find-in-cpp/#:~:text=Finds%20the%20element%20in%20the,found%2C%20the%20function%20returns%20last.)
+
+Module 8, ex02
+- [std::stack](https://en.cppreference.com/w/cpp/container/stack)
+- [std::stack](http://www.cplusplus.com/reference/stack/stack/)
