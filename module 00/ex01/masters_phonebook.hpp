@@ -52,3 +52,5 @@ public:
 };
 
 void welcome_message(void);
+
+#endif

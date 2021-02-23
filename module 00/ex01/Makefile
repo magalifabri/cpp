@@ -1,13 +1,16 @@
 NAME 		= masters_phonebook
 
 SRC_DIR 	= ./src/
-SRC_FILES 	= masters_phonebook.cpp welcome_message.cpp
+SRC_FILES 	= \
+			main.cpp \
+			masters_phonebook.cpp \
+			welcome_message.cpp
 
 OBJ_DIR 	= ./obj/
 OBJ_FILES 	= $(addprefix $(OBJ_DIR), $(SRC_FILES:.cpp=.o))
 
 CC 			= clang++
-CFLAGS 		= -Wall -Wextra -Werror
+CFLAGS 		= -g -Wall -Wextra -Werror
 
 RM 			= /bin/rm -f
 RMDIR 		= /bin/rm -rf
